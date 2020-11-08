@@ -1,0 +1,27 @@
+<%- include('../0_Home_page_frame/top_title.ejs') %>
+<link rel='stylesheet' href='/stylesheets/4_tasks.css' />
+<div class="center-tasks-block">
+    <form class="formTesk">
+        <div id="myTest">
+            <button class="button_enter_task">הוסף משימה</button>
+            <input type="text" id="input_text" placeholder="...הכנס תוכן" ></inpuut>
+            <br><br>
+            <input type="checkbox" class="checkBoxKlict">חפש משימות</input>
+            <ul id="ulTeskList">
+                <!-- <li class="liTesk">
+                <p class="textP">בדיקה</p>
+                <img src="img/delete.png" class="deleteButtn">
+                <img src="img/Edit.png" class="editButtn">
+                <input type="checkbox" class="chekBoxBoutton">
+            </li> -->
+            </ul>
+        </div>
+    </form>
+</div>
+
+
+
+
+<%- include('../0_Home_page_frame/footer.ejs') %>
+
+<script src="/javascripts/4_tasks/4_tasks.js"></script>

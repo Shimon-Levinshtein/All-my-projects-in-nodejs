@@ -1,0 +1,41 @@
+<%- include('../0_Home_page_frame/top_title.ejs') %>
+<link rel='stylesheet' href='/stylesheets/6_calculator.css' />
+<div class="calculator-center">
+    <div class="myCulculator">
+        <div class="myCulculatorBorder">
+
+            <form>
+                <input id="input_numbers" type="text" placeholder="0"></input>
+            </form>
+            <br>
+
+
+            <button id="1">1</button>
+            <button id="2">2</button>
+            <button id="3">3</button>
+            <button id="-">-</button>
+            <br>
+            <button id="4">4</button>
+            <button id="5">5</button>
+            <button id="6">6</button>
+            <button id="+">+</button>
+            <br>
+            <button id="7">7</button>
+            <button id="8">8</button>
+            <button id="9">9</button>
+            <button id="*">*</button>
+            <br>
+            <button id="0">0</button>
+            <button id=".">.</button>
+            <button id="/">/</button>
+            <button id="c">C</button>
+            <br>
+            <button id="=" class="big">=</button>
+        </div>
+    </div>
+</div>
+
+
+<%- include('../0_Home_page_frame/footer.ejs') %>
+
+<script src="/javascripts/6_calculator/6_calculator.js"></script>

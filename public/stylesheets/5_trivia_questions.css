@@ -1,0 +1,99 @@
+/* start page */
+.button-to-begen{
+    align-items: flex-start;
+    text-decoration: none;
+    text-align: center;
+    cursor: default;
+    box-sizing: border-box;
+    padding: 2px 6px 3px;
+    border-width: 2px;
+    border-style: outset;
+    border-image: initial;
+}
+.trivia_start_page{
+  background: blanchedalmond;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 50px;
+  margin-bottom: 50px;
+  width: 400px;
+  height: 200px;
+  border-radius: 15px;
+}
+.center1{
+  margin-left: auto;
+  margin-right: auto;
+  width: 350px;
+  text-align: center;
+}
+.center2{
+  margin-left: auto;
+  margin-right: auto;
+  width: 100px;
+}
+
+/*questions page */
+.trivia_question_page{
+    display: block;
+    background: blanchedalmond;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 50px;
+    width: 500px;
+    height: 400px;
+    padding: 20px;
+    border-radius: 15px;
+    margin-bottom: 50px;
+  }
+  .trivia_rezolt_page{
+    display: none;
+    background: blanchedalmond;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 50px;
+    width: 500px;
+    height: 400px;
+    padding: 20px;
+    text-align: center;
+    border-radius: 15px;
+    margin-bottom: 50px;
+  }
+  .timeP{
+    float: left;
+    width: 107px;
+  }
+  .timeInput{
+    float: left;
+  }
+  .questionInput{
+    border: 1px solid black;
+    padding: 3px;
+    width: 300px;
+    text-align: center;
+  }
+  .timeInput{
+    border: 1px solid black;
+    padding: 3px;
+    width: 100px;
+    text-align: center;
+  }
+  .big-font-true{
+    font-size: 20px;
+    color: blue;
+  }
+  .big-font-false{
+    font-size: 20px;
+    color: red;
+  }
+  .resoltImg{
+    height: 70px;
+    width: 70px;
+    margin-top: 20px;
+  }
+  .h3-t{
+    text-align: center;
+  }
+  .button-try-again{
+    border-radius: 5px;
+  }
+  

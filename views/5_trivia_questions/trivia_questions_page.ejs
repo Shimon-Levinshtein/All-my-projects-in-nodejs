@@ -1,0 +1,37 @@
+
+<%- include('../0_Home_page_frame/top_title.ejs') %>
+<link rel='stylesheet' href='/stylesheets/5_trivia_questions.css' />
+
+
+
+
+    <div class="trivia_question_page" dir="rtl">
+        <br>
+        <div class="timeP">זמן</div>
+        <div class="questionP">שאלה מספר </div>
+        <div class="timeInput">time</div>
+        <div class="questionInput">questionInput</div>
+        <div class="div-answers">
+            <ol id="ul-list-answers">
+                <li class="li-answer key1">answer A</li>
+                <li class="li-answer key2">answer B</li>
+                <li class="li-answer key3">answer C</li>
+                <li class="li-answer key4">answer D</li>
+            </ol>
+        </div>
+        <button class="next-question-button">לשאלה הבאה</button>
+    </div>
+
+
+    <div class="trivia_rezolt_page">
+        <img class="resoltImg" src="img/smile.png">
+        <h3 class="h3-t">החידון הסתיים</h3>
+        <h3 class="results-of-points">ניקוד</h3>
+        <button class="button-try-again" onclick=tryAgain()>נסה שוב</button>
+    </div>
+
+
+    <%- include('../0_Home_page_frame/footer.ejs') %>
+    <script src="/javascripts/5_trivia_questions/5_trivia_questions.js"></script>
+
+    

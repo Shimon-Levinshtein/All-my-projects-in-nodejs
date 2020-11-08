@@ -1,0 +1,355 @@
+/* CSS General */
+body{
+    background: bisque;
+  }
+  .myPege{
+      height: 100%;
+      width: 100%;
+  }
+  .flex-to-cnter{
+    display: flex;
+    justify-content: center;
+    justify-content: space-around;
+  }
+  .margin-bottom{
+    margin-bottom: 30px;
+  }
+  .bessd{
+    text-align: right;
+    width: 100%;
+  }
+  .display-none{
+    display: none;
+  }
+  /* CSS of the top */
+  
+  .img-stmdol{
+      height: 60px;
+      margin: 10px
+  }
+  .wrap{
+    width: 700px;
+    margin-top: 35px;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .search {
+    width: 80%;
+    position: relative;
+    display: flex;
+    
+  }
+  .searchTerm {
+    width: 100%;
+    border: 3px solid #00B4CC;
+    border-right: none;
+    padding: 5px;
+    height: 20px;
+    border-radius: 5px 0 0 5px;
+    outline: none;
+    color: #9DBFAF;
+  }
+  .searchTerm:focus{
+    color: #00B4CC;
+  }
+  .searchButton {
+    width: 40px;
+    height: 36px;
+    border: 1px solid #00B4CC;
+    background: #00B4CC;
+    text-align: center;
+    color: #fff;
+    border-radius: 0 5px 5px 0;
+    cursor: pointer;
+    font-size: 20px;
+  }
+  .popular{
+    width: 300px;
+    display: flex;
+    justify-content: flex-end;
+    padding: 20px;
+  }
+  .heart{
+    color: red;
+    font-size: 40px;
+    cursor: pointer;
+    position: relative
+  }
+  
+  .left{
+    width: 25%;
+    background: #fff;
+    height: 900px;
+    text-align: center;
+    border-radius: 10px;
+    overflow: auto;
+  }
+  .middle{
+    width: 50%;
+    height: 100%;
+    text-align: center;
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+  .right{
+    width: 25%;
+    background: #fff;
+    height: 900px;
+    text-align: center;
+    overflow: auto;
+    border-radius: 10px;
+    margin-left: 20px;
+  }
+  
+  /* The bottom of the site */
+  
+  .bottom-site{
+    height: 100px;
+    background: red;
+    color: #fff;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 100px;
+    border-radius: 10px;
+    margin-top: 20px;
+    font-size: 20px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  }
+  .recipe-view{
+    display: flex;
+    align-items: center;
+    height: 50px;
+    cursor: pointer;
+  }
+  .recipe-view img{
+    height: 40px;
+    width: 40px;
+    border-radius: 50px;
+    margin-right: 5px;
+    margin-left: 5px;
+  }
+  .recipe-title{
+    text-align: left;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    color: maroon;
+  }
+  /* The right of the site */
+  .hide-favorites{
+    background: #00B4CC;
+    color: #fff;
+    font-weight: bold;
+    font-family: Arial, Helvetica, sans-serif;
+    cursor: pointer;
+  }
+  /* Design of the specification of the menu */
+  .recipeSpecification{
+    background:rgb(194, 193, 236);
+    width: 100%;
+    border-radius: 20px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    padding: 10px;
+  }
+  .recipeSpecification img{
+    height: 200px;
+    border-radius: 20px;
+  }
+  .titel-recipeSpecification{
+    margin-top: 10px;
+    font-size: 30px;
+    font-weight: bold;
+  }
+  .flex-recipeSpecification{
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+  }
+  .cooking-time{
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+    margin-right: 30px;
+  }
+  .amount-peole{
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+    margin-right: 10px;
+  }
+  .circle-design{
+    margin-top: 10px;
+    width: 20px;
+    height: 20px;
+    border-radius: 50px;
+    margin-right: 1px;
+    background: blue;
+    color: #fff;
+    cursor: pointer;
+  }
+  .heart-recipeSpecification{
+    vertical-align: middle;
+      line-height: 40px;
+      font-size: 45px;
+      color: rgb(252, 252, 252);
+      background: red;
+      width: 45px;
+      height: 45px;
+      border-radius: 50px;
+      vertical-align: middle;
+      line-height: 48px;
+      margin-left: 50px;
+      cursor: pointer;
+  }
+  .recipe-components{
+    padding-bottom: 20px;
+  }
+  .component{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 5px;
+    width: 80%;
+    text-align: left;
+    padding-left: 10%;
+    display: flex;
+  }
+  .input-quantity-teaspoons{
+    border-radius: 10px;
+    text-align: center;
+    margin-left: 5px;
+    margin-right: 3px;
+  }
+  .button-to-buy{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: red;
+    height: 35px;
+    width: 250px;
+    color: #fff;
+    font-weight: bold;
+    border-radius: 50px;
+    cursor: pointer;
+    vertical-align: middle;
+    line-height: 35px;
+    margin-top:  20px
+  }
+  .shopping-list{
+    background: rgb(201, 198, 198);
+    border-radius: 5px;
+  }
+  /* Settings for the favorites */
+  .div-popular{
+    background: rgba(255, 255, 255, 0.788);
+    position: absolute;
+    width: 300px;
+    padding: 10px;
+    border-radius: 20px;
+    right: 0;
+    top:100%;
+    display: none;
+    font-size: 15px;
+  }
+  .heart:hover .div-popular{
+  display: block;
+  }
+  
+  .recipe-view-favorites{
+    display: flex;
+    align-items: center;
+    height: 50px;
+    width: 100%;
+    cursor: pointer;
+  }
+  .recipe-view-favorites img{
+    height: 40px;
+    width: 13%;
+    border-radius: 50px;
+    margin-right: 5px;
+    margin-left: 5px;
+  }
+  .recipe-title-favorites{
+    text-align: left;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    color: maroon;
+    width: 80%;
+  }
+  .delete-from-favorites{
+    font-size: 20px;
+    color: #fff;
+    width: 10%;
+    height: 30px;
+    text-align: center;
+    font-size: 20px;
+    background: red;
+    border-radius: 100px;
+  }
+  /* shopping list */
+  .input-shopping-list{
+    text-align: center;
+    margin-left: 0px;
+    margin-right: 3px;
+    height: 15px;
+    width: 55px;
+  }
+  .my-shop-list{
+    font-weight: bold;
+    color: maroon;
+    height: 35px;
+    background:  rgb(201, 198, 198);
+    padding-top: 7px;
+  }
+  .delete-from-shopping{
+    font-size: 20px;
+    color: #fff;
+    width: 20px;
+    height: 20px;
+    text-align: center;
+    background: red;
+    border-radius: 100px;
+    float: right;
+    vertical-align: middle;
+    line-height: 15px;
+    cursor: pointer;
+  }
+  .recipe-shopping{
+    padding-bottom: 20px;
+  }
+  .component-shopping{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 5px;
+    width: 95%;
+    text-align: left;
+    padding-left: 2px;
+    display: flex;
+    justify-content: center;
+  }
+  .middle-text-sgopping{
+    width: 70%;
+  }
+  /* Design of div direction for preparation of the recipe */
+  .directions-cook-div{
+    background: rgba(255, 255, 255, 0.349);
+    border-radius: 15px;
+    padding-bottom: 20px;
+    margin-top: 30px;
+  }
+  .how-cook{
+    height: 60px;
+    vertical-align: middle;
+    line-height: 60px;
+    text-shadow: 2px 2px rgb(187, 183, 183);
+    font-weight: bold;
+    font-size: 25px;
+  }
+  .cooking-explanation{
+    height: 60px;
+    width: 420px;
+  }
+  .directions-button{
+    background: red;
+    width: 150px;
+    height: 35px;
+    vertical-align: middle;
+    line-height: 35px;
+    color: #fff;
+    border-radius: 50px;
+    cursor: pointer;
+  }
