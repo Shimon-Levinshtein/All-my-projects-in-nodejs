@@ -47,33 +47,41 @@ document.querySelector(".myPege").addEventListener("click", function (event) {
 
 
 function requestMeanuHTTP(food) {
-    const proxy = 'https://cors-anywhere.herokuapp.com/';
-    const url = 'http://food2fork.com/api/search?';
-    fetch(`${proxy}${url}key=${mykey}&q=${food}`) 
+    const url = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
+    fetch(`${url}${food}`)
         .then(data => data.json())
         .then(data => {
             searchRecipes(data);
             inputSeatch.value = "";
         })
         .catch(e => console.log(e));
+    // const proxy = 'https://cors-anywhere.herokuapp.com/';
+    // const url = 'http://food2fork.com/api/search?';
+    // fetch(`${proxy}${url}key=${mykey}&q=${food}`) 
+    //     .then(data => data.json())
+    //     .then(data => {
+    //         searchRecipes(data);
+    //         inputSeatch.value = "";
+    //     })
+    //     .catch(e => console.log(e));
 }
 
 function searchRecipes(arr) {
-    console.log(arr);
+    // console.log(arr);
 
-    for (let i = 0; i < arr.count; i++) {
+    for (let i = 0; i < arr.meals.length; i++) {
         const recipeView = document.createElement("div");
         recipeView.className = "recipe-view";
-        recipeView.setAttribute("data-recipeId", arr.recipes[i].recipe_id);
+        recipeView.setAttribute("data-recipeId", arr.meals[i].idMeal);
         const img = document.createElement("img");
         const recipeTitle = document.createElement("div");
         recipeTitle.className = "recipe-title";
-        img.src = arr.recipes[i].image_url;
+        img.src = arr.meals[i].strMealThumb;
         recipeView.appendChild(img);
-        recipeTitle.textContent = arr.recipes[i].title;
+        recipeTitle.textContent = arr.meals[i].strMeal;
         recipeView.appendChild(recipeTitle);
         leftPage.appendChild(recipeView);
-        
+
     }
 
 
@@ -81,33 +89,31 @@ function searchRecipes(arr) {
 
 function viewRecipe(recipeid) {
     let obj = {};
-    const proxyB = 'https://cors-anywhere.herokuapp.com/';
-    const urlB = "https://www.food2fork.com/api/get?";
-    fetch(`${proxyB}${urlB}key=${mykey}&rId=${recipeid}`) //pizza
+    const urlB = "https://www.themealdb.com/api/json/v1/1/lookup.php?i=";
+    fetch(`${urlB}${recipeid}`)
         .then(data => data.json())
         .then(data => {
-            obj = data;
+            obj = data.meals[0];
             createHTMLDiv();
         })
         .catch(e => console.log(e));
     function createHTMLDiv() {
-        console.log(obj);
-        
-        const componentArr = parseIngredients(obj.recipe.ingredients);
+
+        const componentArr = parseIngredients(obj);
         let component = ``
         for (let i = 0; i < componentArr.length; i++) {
-            component += ` <div class="component">⊛ <div class="input-quantity-teaspoons">${componentArr[i].count}</div> ${componentArr[i].unit} ${componentArr[i].ingredient}</div>`
+            component += ` <div class="component">⊛ <div class="input-quantity-teaspoons">${componentArr[i].measure}</div>${componentArr[i].ingredient}</div>`
         }
         let divViweRecipe = `
         <div class="recipeSpecification">
-                        <img src="${obj.recipe.image_url}">
-                        <div class="titel-recipeSpecification">${obj.recipe.title}</div>
+                        <img src="${obj.strMealThumb}">
+                        <div class="titel-recipeSpecification">${obj.title}</div>
                         <div class="flex-recipeSpecification">
-                            <div class="cooking-time">⏱ ${CalculatesTime(obj.recipe.ingredients.length)} MINUTES</div>
+                            <div class="cooking-time">⏱ ${CalculatesTime(componentArr.length)} MINUTES</div>
                             <div class="amount-peole">🕴 4 SERVINGS</div>
                             <div class="circle-design">-</div>
                             <div class="circle-design">+</div>
-                            <div class="heart-recipeSpecification" data-id="${recipeid}" data-img="${obj.recipe.image_url}" data-titel="${obj.recipe.title}" >♡</div>
+                            <div class="heart-recipeSpecification" data-id="${recipeid}" data-img="${obj.image_url}" data-titel="${obj.title}" >♡</div>
                         </div>
                         <div class="recipe-components">
                             ${component}
@@ -124,7 +130,7 @@ function viewRecipe(recipeid) {
                             </div>
                         </div>
                         <div class="flex-to-cnter">
-                        <a href="${obj.recipe.source_url}" target="_blank" style="text-decoration:none"><div class="directions-button">DIRECTIONS ▶</div></a> 
+                        <a href="${obj.source_url}" target="_blank" style="text-decoration:none"><div class="directions-button">DIRECTIONS ▶</div></a> 
                         </div>
                     </div>  
                       
@@ -133,56 +139,17 @@ function viewRecipe(recipeid) {
     }
 }
 
-function parseIngredients(ingredients) {
-    const unitsLong = ['tablespoons', 'tablespoon', 'ounces', 'ounce', 'teaspoons', 'teaspoon', 'cups', 'pounds'];
-    const unitsShort = ['tbsp', 'tbsp', 'oz', 'oz', 'tsp', 'tsp', 'cup', 'pound', 'kg', 'g'];
-
-    const newIngredients = ingredients.map(el => {
-        let ingredient = el.toLowerCase();
-        unitsLong.forEach((unit, i) => {
-            ingredient = ingredient.replace(unit, unitsShort[i]);
-        });
-
-        ingredient = ingredient.replace(/ *\([^)]*\) */g, ' ');
-
-        const arrIng = ingredient.split(' ');
-        const unitIndex = arrIng.findIndex(el2 => unitsShort.includes(el2));
-
-        let objIng;
-        if (unitIndex > -1) {
-
-            const arrCount = arrIng.slice(0, unitIndex);
-
-            let count;
-            if (arrCount.length === 1) {
-                count = eval(arrIng[0].replace('-', '+'));
-            } else {
-                count = eval(arrIng.slice(0, unitIndex).join('+'));
-            }
-
-            objIng = {
-                count,
-                unit: arrIng[unitIndex],
-                ingredient: arrIng.slice(unitIndex + 1).join(' ')
-            };
-
-        } else if (parseInt(arrIng[0], 10)) {
-            objIng = {
-                count: parseInt(arrIng[0], 10),
-                unit: '',
-                ingredient: arrIng.slice(1).join(' ')
-            }
-        } else if (unitIndex === -1) {
-            objIng = {
-                count: 1,
-                unit: '',
-                ingredient
+function parseIngredients(obj) {
+    const arrIngredients = [];
+    for (const key in obj) {
+        if (key.includes('strIngredient')) {
+            const ingredientsId = key.slice(13);
+            if (obj[key]) {
+                arrIngredients.push({ ingredient: obj[key], measure: obj['strMeasure' + ingredientsId] });
             }
         }
-
-        return objIng;
-    });
-    return newIngredients;
+    }
+    return arrIngredients;
 };
 
 function addRecipeToFavorites(dataId, imgId, titelId) {
@@ -206,11 +173,11 @@ function CalculatesTime(nember) {
     let hours = 0;
     let minutes = 0;
     for (let i = 0; i < nember; i++) {
-        if (minutes == 60) {
+        if (minutes == 59) {
             hours = hours + 1;
             minutes = 0;
         }
-        minutes = minutes + 15;
+        minutes = minutes + 3;
     }
     return "0" + hours + ":" + minutes;
 };
@@ -232,6 +199,7 @@ function preparationByNumberOfPeople(parameter, eventT) {
         }
         if (eventT.previousElementSibling.getAttribute("data-amountPeoople") > 0) {
             let a = eventT.previousElementSibling.getAttribute("data-amountPeoople");
+            eventT.previousElementSibling.previousElementSibling.setAttribute("data-amountPeoople", (a * 1) - 1);
             eventT.previousElementSibling.setAttribute("data-amountPeoople", (a * 1) - 1);
             a = eventT.previousElementSibling.getAttribute("data-amountPeoople");
             eventT.previousElementSibling.textContent = `🕴 ${a} SERVINGS`;
@@ -239,17 +207,14 @@ function preparationByNumberOfPeople(parameter, eventT) {
 
         }
     }
+    // ***************************************************************************************************************
+    
     for (let i = 0; i < arrComponent.length; i++) {
-        if (!arrComponent[i].childNodes[1].getAttribute("data-num")) {
-            arrComponent[i].childNodes[1].setAttribute("data-num", arrComponent[i].childNodes[1].textContent / 4);
-        }
+        
         if (parameter == "+") {
-            let a = arrComponent[i].childNodes[1].getAttribute("data-num");
             let b = arrComponent[i].childNodes[1].textContent;
-            a = (a * 1).toFixed(2) * 1;
-            b = (b * 1).toFixed(2) * 1;
-            let c = (a + b).toFixed(2) * 1;
-            arrComponent[i].childNodes[1].textContent = c;
+            const result = processText(b, '+', eventT.previousElementSibling.previousElementSibling.getAttribute("data-amountPeoople") - 1)
+            arrComponent[i].childNodes[1].textContent = result;
         } else {
             let a = eventT.previousElementSibling.getAttribute("data-rtueFalse");
             if (a == 1) {
@@ -266,6 +231,64 @@ function preparationByNumberOfPeople(parameter, eventT) {
         eventT.previousElementSibling.setAttribute("data-rtueFalse", "0");
     }
 }
+
+function processText(inputText, moreOrLess, numPeople) {
+    const resultArr = [];
+    var json = inputText.split(' ');
+    json.forEach(function (item) {
+        const strArr = item.replace(/\'/g, '').split(/(\d+)/).filter(Boolean);
+        if (strArr.length > 1) {
+            resultArr.push(computerPeople(strArr, moreOrLess, numPeople));
+        } else {
+            resultArr.push(item);
+        }
+    });
+    return resultArr.join(' ');
+};
+
+const computerPeople = (strArr, moreOrLess, numPeople) => {
+    let newArr = [];
+    let notPush = 0;
+
+    if (moreOrLess = '+') {
+        strArr.forEach((element, index) => {
+            console.log('strArr.forEach 1: -->  ' + strArr);
+            element = element * 1;
+            if (typeof(element * 1) === 'number') {
+
+                if (strArr[index+1] == '/') {
+                    newArr.push(((element / strArr[index+2]) / element) * (element + 1).toFixed(2));
+                    notPush = notPush +2
+                } else if (strArr[index+1] == '.') {
+                    
+                    newArr.push(((element + (strArr[index+2] / 10)) / element) * (element + 1).toFixed(2));
+                    notPush = notPush +2
+                } else  {
+                    if (notPush == 0) {
+                        newArr.push((element / element) * (element + 1));
+                    } else {
+                        notPush = notPush - 1
+                    };
+                };
+                
+            } else {
+                newArr.push(element);
+            }
+        });
+    } else {
+        
+    };
+    console.log(newArr);
+    for (let index = 0; index < newArr.length; index++) {
+        newArr[index] = 0;
+        
+    }
+    console.log(newArr);
+    return newArr.join('');
+};
+
+console.log('(8.555656)'.toFixed(2));
+
 function addShoppingList(recipeid) {
     let obj = {};
     const proxyB = 'https://cors-anywhere.herokuapp.com/';
@@ -300,8 +323,9 @@ function addShoppingList(recipeid) {
 
         rightPage.innerHTML = divViweRecipe;
 
-    
-}}
+
+    }
+}
 const searchKey = document.querySelector('.searchTerm');
 
 searchKey.addEventListener('keypress', function (e) {
