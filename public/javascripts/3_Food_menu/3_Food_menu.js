@@ -190,6 +190,7 @@ function preparationByNumberOfPeople(parameter, eventT) {
         }
         let a = eventT.previousElementSibling.previousElementSibling.getAttribute("data-amountPeoople");
         eventT.previousElementSibling.previousElementSibling.setAttribute("data-amountPeoople", (a * 1) + 1);
+        console.log(a);
         a = eventT.previousElementSibling.previousElementSibling.getAttribute("data-amountPeoople")
         eventT.previousElementSibling.previousElementSibling.textContent = `🕴 ${a} SERVINGS`;
         eventT.previousElementSibling.previousElementSibling.setAttribute("data-rtueFalse", "1");
@@ -208,23 +209,27 @@ function preparationByNumberOfPeople(parameter, eventT) {
         }
     }
     // ***************************************************************************************************************
-    
+    console.log('+++++++ ' + eventT.previousElementSibling.previousElementSibling.getAttribute("data-amountPeoople"));
+
     for (let i = 0; i < arrComponent.length; i++) {
-        
+
         if (parameter == "+") {
-            let b = arrComponent[i].childNodes[1].textContent;
-            const result = processText(b, '+', eventT.previousElementSibling.previousElementSibling.getAttribute("data-amountPeoople") - 1)
-            arrComponent[i].childNodes[1].textContent = result;
-        } else {
-            let a = eventT.previousElementSibling.getAttribute("data-rtueFalse");
-            if (a == 1) {
-                let a = arrComponent[i].childNodes[1].getAttribute("data-num");
+            if (eventT.previousElementSibling.previousElementSibling.getAttribute("data-amountPeoople") > 0) {
                 let b = arrComponent[i].childNodes[1].textContent;
-                a = (a * 1).toFixed(2) * 1;
-                b = (b * 1).toFixed(2) * 1;
-                let c = (b - a).toFixed(2) * 1;
-                arrComponent[i].childNodes[1].textContent = c;
-            }
+                const result = processText(b, '+', eventT.previousElementSibling.previousElementSibling.getAttribute("data-amountPeoople") - 1)
+                arrComponent[i].childNodes[1].textContent = result;
+            };
+        } else {
+
+            if (eventT.previousElementSibling.getAttribute("data-amountPeoople") >= 1) {
+                let a = eventT.previousElementSibling.getAttribute("data-rtueFalse");
+                if (a == 1) {
+                    let b = arrComponent[i].childNodes[1].textContent;
+                    const result = processText(b, '-', eventT.previousElementSibling.previousElementSibling.getAttribute("data-amountPeoople") * 1 + 1)
+                    arrComponent[i].childNodes[1].textContent = result;
+                }
+
+            };
         }
     }
     if (eventT.previousElementSibling.getAttribute("data-amountPeoople") == 0) {
@@ -233,15 +238,14 @@ function preparationByNumberOfPeople(parameter, eventT) {
 }
 
 function processText(inputText, moreOrLess, numPeople) {
+    console.log('inputText ===>>> ' + inputText + " numPeople - " + numPeople);
     const resultArr = [];
     var json = inputText.split(' ');
     json.forEach(function (item) {
-        const strArr = item.replace(/\'/g, '').split(/(\d+)/).filter(Boolean);
-        if (strArr.length > 1) {
-            resultArr.push(computerPeople(strArr, moreOrLess, numPeople));
-        } else {
-            resultArr.push(item);
-        }
+        let strArr = item.replace(/\'/g, '').split(/(\d+)/).filter(Boolean);
+        if (strArr.includes('.')) strArr = [strArr.join('')];
+        resultArr.push(computerPeople(strArr, moreOrLess, numPeople));
+
     });
     return resultArr.join(' ');
 };
@@ -249,45 +253,57 @@ function processText(inputText, moreOrLess, numPeople) {
 const computerPeople = (strArr, moreOrLess, numPeople) => {
     let newArr = [];
     let notPush = 0;
-
-    if (moreOrLess = '+') {
+    if (moreOrLess == '+') {
         strArr.forEach((element, index) => {
-            console.log('strArr.forEach 1: -->  ' + strArr);
-            element = element * 1;
-            if (typeof(element * 1) === 'number') {
+            if (/\d/.test(element) || element == '.' || element == '/') element = element * 1;
 
-                if (strArr[index+1] == '/') {
-                    newArr.push(((element / strArr[index+2]) / element) * (element + 1).toFixed(2));
-                    notPush = notPush +2
-                } else if (strArr[index+1] == '.') {
-                    
-                    newArr.push(((element + (strArr[index+2] / 10)) / element) * (element + 1).toFixed(2));
-                    notPush = notPush +2
-                } else  {
+            if (typeof (element) === 'number') {
+
+                if (strArr[index + 1] == '/') {
+                    newArr.push(((element / strArr[index + 2]) / numPeople) * (numPeople + 1));
+                    notPush = notPush + 2
+                } else {
                     if (notPush == 0) {
-                        newArr.push((element / element) * (element + 1));
+                        newArr.push((element / numPeople) * (numPeople + 1));
                     } else {
                         notPush = notPush - 1
                     };
                 };
-                
+
             } else {
                 newArr.push(element);
             }
         });
     } else {
-        
+        strArr.forEach((element, index) => {
+            if (/\d/.test(element) || element == '.' || element == '/') element = element * 1;
+
+            if (typeof (element) === 'number') {
+                if (strArr[index + 1] == '/') {
+                    newArr.push(((element / strArr[index + 2]) / numPeople) * (numPeople - 1));
+                    notPush = notPush + 2
+                } else {
+                    if (notPush == 0) {
+                        newArr.push((element / numPeople) * (numPeople - 1));
+                    } else {
+                        notPush = notPush - 1
+                    };
+                };
+
+            } else {
+                newArr.push(element);
+            }
+        });
+
     };
-    console.log(newArr);
     for (let index = 0; index < newArr.length; index++) {
-        newArr[index] = 0;
-        
+        const lengthStr = newArr[index].toString();
+        if (lengthStr.length > 3) {
+            if (/\d/.test(newArr[index])) newArr[index] = newArr[index].toFixed(2);
+        };
     }
-    console.log(newArr);
     return newArr.join('');
 };
-
-console.log('(8.555656)'.toFixed(2));
 
 function addShoppingList(recipeid) {
     let obj = {};
