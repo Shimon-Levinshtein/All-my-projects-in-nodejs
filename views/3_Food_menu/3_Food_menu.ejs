@@ -1,108 +1,135 @@
 <%- include('../0_Home_page_frame/top_title.ejs') %>
 
-<link rel="stylesheet" href="/stylesheets/3_Food_menu.css">
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+    <link rel="stylesheet" href="/stylesheets/3_Food_menu.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
+        integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 
 
-<div class="myPege">
-    <div class="bessd"> בס''ד </div>
-    <!-- This is the top title of the site -->
+    <div class="myPege">
+        <div class="bessd"> בס''ד </div>
+        <!-- This is the top title of the site -->
 
-    <div class="flex-to-cnter margin-bottom">
-        <img class="img-stmdol" src="https://www.themealdb.com/images/logo-small.png">
-        <div class="wrap">
-            <div class="search">
-                <input type="text" class="searchTerm" placeholder="What are you looking for?" value="chicken"> 
-                <button type="submit" class="searchButton">
-                    <i class="fa fa-search"></i>
-                </button>
+        <div class="flex-to-cnter margin-bottom">
+            <img class="img-stmdol" src="https://www.themealdb.com/images/logo-small.png">
+            <div class="wrap">
+                <div class="search">
+                    <input type="text" class="searchTerm" placeholder="What are you looking for?" value="chicken">
+                    <button type="submit" class="searchButton">
+                        <i class="fa fa-search"></i>
+                    </button>
+                </div>
             </div>
-        </div>
-        <div class="popular">
-            <div class="heart mouseover-heart">❤
-                <div class="div-popular ">
-                    <!-- <div class="recipe-view-favorites">
+            <div class="popular">
+                <div class="heart mouseover-heart">❤
+                    <div class="div-popular ">
+                        <!-- <div class="recipe-view-favorites">
                                 <img src="http://static.food2fork.com/best_pizza_dough_recipe1b20.jpg">
                                 <div class="recipe-title-favorites">Best Pizza Dough Ever</div>
                                 <div class="delete-from-favorites">🗑</div>
                             </div> -->
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <!-- This is the middle part of the site -->
+        <!-- This is the middle part of the site -->
 
-    <div class="flex-to-cnter">
-        <div class="left">
-            <!-- <div class="recipe-view">
+        <div class="flex-to-cnter">
+            <div class="left">
+                <!-- <div class="recipe-view">
                 <img src="http://static.food2fork.com/best_pizza_dough_recipe1b20.jpg">
                 <div class="recipe-title">Best Pizza Dough Ever</div>
             </div> -->
-        </div>
-        <div class="middle">
-            <!-- <div class="recipeSpecification">
-                <img src="http://static.food2fork.com/best_pizza_dough_recipe1b20.jpg">
-                <div class="titel-recipeSpecification">Best Pizza Dough Ever</div>
-                <div class="flex-recipeSpecification">
-                    <div class="cooking-time">⏱ 60 MINUTES</div>
-                    <div class="amount-peole">🕴 4 SERVINGS</div>
-                    <div class="circle-design">-</div>
-                    <div class="circle-design">+</div>
-                    <div class="heart-recipeSpecification" data-id="5656784" data-img="sdsds" data-titel="shimon">♡
-                    </div>
-                </div>
-                <div class="recipe-components">
-                    <div class="component">⊛ cup <input class="input-quantity-teaspoons" step="0.25" type="number"
-                            value="55"> teaspoons salt</div>
-                    <div class="component">⊛ cup <input class="input-quantity-teaspoons" step="0.25" type="number"
-                            value="1.2"> teaspoons salt</div>
-                    <div class="component">⊛ cup <input class="input-quantity-teaspoons" step="0.25" type="number"
-                            value="4"> teaspoons salt</div>
-                    <div class="component">⊛ cup <input class="input-quantity-teaspoons" step="0.25" type="number"
-                            value="0.35"> teaspoons salt</div>
-                    <div class="component">⊛ cup <input class="input-quantity-teaspoons" step="0.25" type="number"
-                            value="0.25"> teaspoons salt</div>
-                    <div class="component">⊛ cup <input class="input-quantity-teaspoons" step="0.25" type="number"
-                            value="2.5"> teaspoons salt</div>
-                </div>
-                <div class="flex-to-cnter">
-                    <div class="button-to-buy">🛒 ADD TO SHOPPING LIST</div>
-                </div>
-                <div class="directions-cook-div">
-                    <div class="how-cook">HOW TO COOK IT</div>
-                    <div class="flex-to-cnter">
-                        <div class="cooking-explanation">
-                            This recipe was carefully designed and tested by Two Peas and
-                            Their Pod. Please check out directions at their website.
+            </div>
+            <div class="middle">
+                <!-- <div class="recipeSpecification">
+                    <img src="https://www.themealdb.com/images/media/meals/tyywsw1505930373.jpg">
+                    <div class="titel-recipeSpecification">Best Pizza Dough Ever</div>
+                    <div class="flex-recipeSpecification">
+                        <div class="cooking-time">⏱ 60 MINUTES</div>
+                        <div class="amount-peole">🕴 4 SERVINGS</div>
+                        <div class="circle-design">-</div>
+                        <div class="circle-design">+</div>
+                        <div class="heart-recipeSpecification" data-id="5656784" data-img="sdsds" data-titel="shimon">♡
                         </div>
                     </div>
                     <div class="flex-to-cnter">
-                        <a href="https://www.google.com/" target="_blank" style="text-decoration:none"><div class="directions-button">DIRECTIONS ▶</div></a> 
+                        <div class="recipe-components">
+                            <div class="component">⊛ cup <input class="input-quantity-teaspoons" step="0.25"
+                                    type="number" value="55"> teaspoons salt</div>
+                            <div class="component">⊛ cup <input class="input-quantity-teaspoons" step="0.25"
+                                    type="number" value="1.2"> teaspoons salt</div>
+                            <div class="component">⊛ cup <input class="input-quantity-teaspoons" step="0.25"
+                                    type="number" value="4"> teaspoons salt</div>
+                            <div class="component">⊛ cup <input class="input-quantity-teaspoons" step="0.25"
+                                    type="number" value="0.35"> teaspoons salt</div>
+                            <div class="component">⊛ cup <input class="input-quantity-teaspoons" step="0.25"
+                                    type="number" value="0.25"> teaspoons salt</div>
+                            <div class="component">⊛ cup <input class="input-quantity-teaspoons" step="0.25"
+                                    type="number" value="2.5"> teaspoons salt</div>
+                        </div>
+                        <div class="recipe-specification">
+                            "Take a large pot or wok, big enough to cook all the chicken, and heat the oil in it. Once
+                            the oil is hot, add sliced onion and fry them until deep golden brown. Then take them out on
+                            a plate and set aside.
+                            To the same pot, add the chopped garlic and sauté for a minute. Then add the chopped
+                            tomatoes and cook until tomatoes turn soft. This would take about 5 minutes.
+                            Then return the fried onion to the pot and stir. Add ginger paste and sauté well.
+                            Now add the cumin seeds, half of the coriander seeds and chopped green chillies. Give them a
+                            quick stir.
+                            Next goes in the spices – turmeric powder and red chilli powder. Sauté the spices well for
+                            couple of minutes.
+                            Add the chicken pieces to the wok, season it with salt to taste and cook the chicken covered
+                            on medium-low heat until the chicken is almost cooked through. This would take about 15
+                            minutes. Slowly sautéing the chicken will enhance the flavor, so do not expedite this step
+                            by putting it on high heat.
+                            When the oil separates from the spices, add the beaten yogurt keeping the heat on lowest so
+                            that the yogurt doesn’t split. Sprinkle the remaining coriander seeds and add half of the
+                            dried fenugreek leaves. Mix well.
+                            Finally add the cream and give a final mix to combine everything well.
+                            Sprinkle the remaining kasuri methi and garam masala and serve the chicken handi hot with
+                            naan or rotis. Enjoy!"
+                        </div>
                     </div>
-                </div>
-            </div> -->
-        </div>
-        <div class="right">
-            <!-- <div class="my-shop-list">MY SHOPPING LIST 🛒</div> -->
-            <!-- <div class="leftDispay">
+                    <div class="flex-to-cnter">
+                        <div class="button-to-buy">🛒 ADD TO SHOPPING LIST</div>
+                    </div>
+                    <div class="directions-cook-div">
+                        <div class="how-cook">HOW TO COOK IT</div>
+                        <div class="flex-to-cnter">
+                            <div class="cooking-explanation">
+                                This recipe was carefully designed and tested by Two Peas and
+                                Their Pod. Please check out directions at their website.
+                            </div>
+                        </div>
+                        <div class="flex-to-cnter">
+                            <a href="https://www.google.com/" target="_blank" style="text-decoration:none">
+                                <div class="directions-button">DIRECTIONS ▶</div>
+                            </a>
+                        </div>
+                    </div>
+                </div> -->
+            </div>
+            <div class="right">
+                <!-- <div class="my-shop-list">MY SHOPPING LIST 🛒</div> -->
+                <!-- <div class="leftDispay">
                 <div class="recipe-view">
                     <img src="http://static.food2fork.com/best_pizza_dough_recipe1b20.jpg">
                     <div class="recipe-title">Best Pizza Dough Ever</div>
                     <div class="delete-from-shopping">x</div>
                 </div>
             </div> -->
+            </div>
+
         </div>
 
+        <!-- The bottom of the site -->
+        <div class="bottom-site">Have an appetite</div>
     </div>
 
-    <!-- The bottom of the site -->
-    <div class="bottom-site">Have an appetite</div>
-</div>
 
-
-<script src="/javascripts/3_Food_menu/3_Food_menu.js"></script>
+    <script src="/javascripts/3_Food_menu/3_Food_menu.js"></script>
 
 
 
-<%- include('../0_Home_page_frame/footer.ejs') %>
+    <%- include('../0_Home_page_frame/footer.ejs') %>

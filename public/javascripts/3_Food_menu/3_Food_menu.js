@@ -1,10 +1,3 @@
-//teys
-//2d214f911be71226f334579f733d600e
-//0a279e7c10a31beeaba845725dfba0cf
-//7dc8a9427e4a27d0adaa5367f4898f97
-//56f57a3cbd3df327bafe32ed4e0e86a2
-//ac5a345747d4a2ca57c695ca683d2494
-const mykey = "0a279e7c10a31beeaba845725dfba0cf";
 const inputSeatch = document.querySelector(".searchTerm");
 const leftPage = document.querySelector(".left");
 const middlePage = document.querySelector(".middle");
@@ -55,20 +48,12 @@ function requestMeanuHTTP(food) {
             inputSeatch.value = "";
         })
         .catch(e => console.log(e));
-    // const proxy = 'https://cors-anywhere.herokuapp.com/';
-    // const url = 'http://food2fork.com/api/search?';
-    // fetch(`${proxy}${url}key=${mykey}&q=${food}`) 
-    //     .then(data => data.json())
-    //     .then(data => {
-    //         searchRecipes(data);
-    //         inputSeatch.value = "";
-    //     })
-    //     .catch(e => console.log(e));
+
 }
 
 function searchRecipes(arr) {
-    // console.log(arr);
-
+    leftPage.innerHTML = '';
+    console.log(leftPage.children);
     for (let i = 0; i < arr.meals.length; i++) {
         const recipeView = document.createElement("div");
         recipeView.className = "recipe-view";
@@ -98,7 +83,7 @@ function viewRecipe(recipeid) {
         })
         .catch(e => console.log(e));
     function createHTMLDiv() {
-
+        console.log(obj);
         const componentArr = parseIngredients(obj);
         let component = ``
         for (let i = 0; i < componentArr.length; i++) {
@@ -107,20 +92,30 @@ function viewRecipe(recipeid) {
         let divViweRecipe = `
         <div class="recipeSpecification">
                         <img src="${obj.strMealThumb}">
-                        <div class="titel-recipeSpecification">${obj.title}</div>
+                        <div class="titel-recipeSpecification">${obj.strMeal}</div>
                         <div class="flex-recipeSpecification">
                             <div class="cooking-time">⏱ ${CalculatesTime(componentArr.length)} MINUTES</div>
                             <div class="amount-peole">🕴 4 SERVINGS</div>
                             <div class="circle-design">-</div>
                             <div class="circle-design">+</div>
-                            <div class="heart-recipeSpecification" data-id="${recipeid}" data-img="${obj.image_url}" data-titel="${obj.title}" >♡</div>
+                            <div class="heart-recipeSpecification" data-id="${recipeid}" data-img="${obj.strMealThumb}" data-titel="${obj.strMeal}" >♡</div>
                         </div>
-                        <div class="recipe-components">
-                            ${component}
+                        <div class="flex-to-cnter">
+                            <div class="recipe-components">
+                                ${component}
+                            </div>
+                            <div class="recipe-specification">
+                                ${obj.strInstructions}
+                            </div>
                         </div>
                         <div class="flex-to-cnter">
                             <div class="button-to-buy" data-id="${recipeid}">🛒 ADD TO SHOPPING LIST</div>
                         </div>
+                        
+                        <div class="iframe-container">
+                            <iframe src="${obj.strYoutube.slice(0, 24)}embed/${obj.strYoutube.slice(32)}" class="ifarme none"></iframe>
+                        </div>
+
                         <div class="directions-cook-div">
                         <div class="how-cook">HOW TO COOK IT</div>
                         <div class="flex-to-cnter">
@@ -130,7 +125,7 @@ function viewRecipe(recipeid) {
                             </div>
                         </div>
                         <div class="flex-to-cnter">
-                        <a href="${obj.source_url}" target="_blank" style="text-decoration:none"><div class="directions-button">DIRECTIONS ▶</div></a> 
+                        <a href="${obj.strSource}" target="_blank" style="text-decoration:none"><div class="directions-button">DIRECTIONS ▶</div></a> 
                         </div>
                     </div>  
                       
@@ -151,7 +146,6 @@ function parseIngredients(obj) {
     }
     return arrIngredients;
 };
-
 function addRecipeToFavorites(dataId, imgId, titelId) {
     const recipeView = document.createElement("div");
     recipeView.className = "recipe-view-favorites";
@@ -183,9 +177,8 @@ function CalculatesTime(nember) {
 };
 
 function preparationByNumberOfPeople(parameter, eventT) {
-
-    let arrComponent = eventT.parentElement.nextElementSibling.children;
-
+    let arrComponent = eventT.parentElement.nextElementSibling.children[0].children;
+    console.log();
     if (!eventT.parentNode.getAttribute("data-amountPeoople")) {
         eventT.parentNode.setAttribute("data-amountPeoople", 4);
     };
@@ -296,32 +289,47 @@ const computerPeople = (strArr, moreOrLess, numPeople) => {
     }
     return newArr.join('');
 };
-
+// ****************************************************************************
 function addShoppingList(recipeid) {
     let obj = {};
-    const proxyB = 'https://cors-anywhere.herokuapp.com/';
-    const urlB = "https://www.food2fork.com/api/get?";
-    fetch(`${proxyB}${urlB}key=ac5a345747d4a2ca57c695ca683d2494&rId=${recipeid}`) //pizza
+    const urlB = "https://www.themealdb.com/api/json/v1/1/lookup.php?i=";
+    console.log(`${urlB}${recipeid}`);
+    fetch(`${urlB}${recipeid}`)
         .then(data => data.json())
         .then(data => {
-            obj = data;
+            obj = data.meals[0];
             createHTMLDiv();
         })
         .catch(e => console.log(e));
 
-
     function createHTMLDiv() {
-        const componentArr = parseIngredients(obj.recipe.ingredients);
+        const componentArr = parseIngredients(obj);
         let component = ``
         for (let i = 0; i < componentArr.length; i++) {
-            component += ` <div class="component-shopping"> <input class="input-shopping-list" step="0.25" type="number" value="${componentArr[i].count}"><div class="middle-text-sgopping"> ${componentArr[i].unit} ${componentArr[i].ingredient}</div><div class="delete-from-shopping">x</div></div>`
+
+            let quantityPurchases = componentArr[i].measure.replace(/\'/g, '').split(/(\d+)/).filter(Boolean)[0];
+            let lestPurchases = componentArr[i].measure.replace(/\'/g, '').split(/(\d+)/).filter(Boolean);
+            lestPurchases = lestPurchases[lestPurchases.length - 1];
+            
+            if (/\d/.test(lestPurchases)) {
+                lestPurchases = '';
+            } else {
+                lestPurchases = lestPurchases + ' - ';
+            };
+            if (!/\d/.test(quantityPurchases)) quantityPurchases = 1;
+
+            component += ` <div class="component-shopping">
+                <input class="input-shopping-list" step="0.25" type="number" value="${quantityPurchases}">
+                <div class="middle-text-sgopping">${lestPurchases}${componentArr[i].ingredient}</div>
+                <div class="delete-from-shopping">x</div>
+             </div>`
         }
         let divViweRecipe = `
         <div class="my-shop-list">MY SHOPPING LIST 🛒</div>
         <div class="shopping-list">
             <div class="recipe-view">
-              <img src="${obj.recipe.image_url}">
-              <div class="recipe-title">${obj.recipe.title}</div>
+              <img src="${obj.strMealThumb}">
+              <div class="recipe-title">${obj.strMeal}</div>
             </div>
             <div class="recipe-shopping">
                ${component}
