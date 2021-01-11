@@ -183,67 +183,58 @@ function CalculatesTime(nember) {
 };
 
 function preparationByNumberOfPeople(parameter, eventT) {
-    let arrComponent = eventT.parentElement.nextElementSibling.children;
-    if (parameter == "+") {
-        if (!eventT.previousElementSibling.previousElementSibling.getAttribute("data-amountPeoople")) {
-            eventT.previousElementSibling.previousElementSibling.setAttribute("data-amountPeoople", 4);
-        }
-        let a = eventT.previousElementSibling.previousElementSibling.getAttribute("data-amountPeoople");
-        eventT.previousElementSibling.previousElementSibling.setAttribute("data-amountPeoople", (a * 1) + 1);
-        console.log(a);
-        a = eventT.previousElementSibling.previousElementSibling.getAttribute("data-amountPeoople")
-        eventT.previousElementSibling.previousElementSibling.textContent = `🕴 ${a} SERVINGS`;
-        eventT.previousElementSibling.previousElementSibling.setAttribute("data-rtueFalse", "1");
-    } else {
-        if (!eventT.previousElementSibling.getAttribute("data-amountPeoople")) {
-            eventT.previousElementSibling.setAttribute("data-amountPeoople", 4);
-        }
-        if (eventT.previousElementSibling.getAttribute("data-amountPeoople") > 0) {
-            let a = eventT.previousElementSibling.getAttribute("data-amountPeoople");
-            eventT.previousElementSibling.previousElementSibling.setAttribute("data-amountPeoople", (a * 1) - 1);
-            eventT.previousElementSibling.setAttribute("data-amountPeoople", (a * 1) - 1);
-            a = eventT.previousElementSibling.getAttribute("data-amountPeoople");
-            eventT.previousElementSibling.textContent = `🕴 ${a} SERVINGS`;
-            eventT.previousElementSibling.setAttribute("data-rtueFalse", "1");
 
-        }
-    }
-    // ***************************************************************************************************************
-    console.log('+++++++ ' + eventT.previousElementSibling.previousElementSibling.getAttribute("data-amountPeoople"));
+    let arrComponent = eventT.parentElement.nextElementSibling.children;
+
+    if (!eventT.parentNode.getAttribute("data-amountPeoople")) {
+        eventT.parentNode.setAttribute("data-amountPeoople", 4);
+    };
 
     for (let i = 0; i < arrComponent.length; i++) {
-
         if (parameter == "+") {
-            if (eventT.previousElementSibling.previousElementSibling.getAttribute("data-amountPeoople") > 0) {
+            if (eventT.parentNode.getAttribute("data-amountPeoople") > 0) {
                 let b = arrComponent[i].childNodes[1].textContent;
-                const result = processText(b, '+', eventT.previousElementSibling.previousElementSibling.getAttribute("data-amountPeoople") - 1)
+                const result = processText(b, '+', eventT.parentNode.getAttribute("data-amountPeoople"))
                 arrComponent[i].childNodes[1].textContent = result;
             };
         } else {
-
-            if (eventT.previousElementSibling.getAttribute("data-amountPeoople") >= 1) {
-                let a = eventT.previousElementSibling.getAttribute("data-rtueFalse");
-                if (a == 1) {
-                    let b = arrComponent[i].childNodes[1].textContent;
-                    const result = processText(b, '-', eventT.previousElementSibling.previousElementSibling.getAttribute("data-amountPeoople") * 1 + 1)
-                    arrComponent[i].childNodes[1].textContent = result;
-                }
-
+            if (eventT.parentNode.getAttribute("data-amountPeoople") > 1) {
+                let b = arrComponent[i].childNodes[1].textContent;
+                const result = processText(b, '-', eventT.parentNode.getAttribute("data-amountPeoople"))
+                arrComponent[i].childNodes[1].textContent = result;
             };
-        }
-    }
-    if (eventT.previousElementSibling.getAttribute("data-amountPeoople") == 0) {
-        eventT.previousElementSibling.setAttribute("data-rtueFalse", "0");
-    }
-}
+        };
+    };
+
+    if (parameter == "+") {
+        let a = eventT.parentNode.getAttribute("data-amountPeoople");
+        eventT.parentNode.setAttribute("data-amountPeoople", (a * 1) + 1);
+        a = eventT.parentNode.getAttribute("data-amountPeoople");
+        eventT.previousElementSibling.previousElementSibling.textContent = `🕴 ${a} SERVINGS`;
+    } else {
+        if (eventT.parentNode.getAttribute("data-amountPeoople") > 1) {
+            let a = eventT.parentNode.getAttribute("data-amountPeoople");
+            eventT.parentNode.setAttribute("data-amountPeoople", (a * 1) - 1);
+            a = eventT.parentNode.getAttribute("data-amountPeoople");
+            eventT.previousElementSibling.textContent = `🕴 ${a} SERVINGS`;
+        };
+    };
+};
 
 function processText(inputText, moreOrLess, numPeople) {
-    console.log('inputText ===>>> ' + inputText + " numPeople - " + numPeople);
     const resultArr = [];
     var json = inputText.split(' ');
     json.forEach(function (item) {
         let strArr = item.replace(/\'/g, '').split(/(\d+)/).filter(Boolean);
-        if (strArr.includes('.')) strArr = [strArr.join('')];
+        if (strArr.includes('.')) {
+            if (strArr.length > 3) {
+                let partOnes = strArr.slice(0, 3);
+                let lastPart = strArr.slice(3, strArr.length);
+                strArr = [partOnes.join(''), ...lastPart];
+            } else {
+                strArr = [strArr.join('')];
+            };
+        };
         resultArr.push(computerPeople(strArr, moreOrLess, numPeople));
 
     });
@@ -251,14 +242,13 @@ function processText(inputText, moreOrLess, numPeople) {
 };
 
 const computerPeople = (strArr, moreOrLess, numPeople) => {
+    numPeople = numPeople * 1;
     let newArr = [];
     let notPush = 0;
     if (moreOrLess == '+') {
         strArr.forEach((element, index) => {
-            if (/\d/.test(element) || element == '.' || element == '/') element = element * 1;
-
+            if (/\d/.test(element) || element == '/') element = element * 1;
             if (typeof (element) === 'number') {
-
                 if (strArr[index + 1] == '/') {
                     newArr.push(((element / strArr[index + 2]) / numPeople) * (numPeople + 1));
                     notPush = notPush + 2
@@ -298,8 +288,10 @@ const computerPeople = (strArr, moreOrLess, numPeople) => {
     };
     for (let index = 0; index < newArr.length; index++) {
         const lengthStr = newArr[index].toString();
-        if (lengthStr.length > 3) {
-            if (/\d/.test(newArr[index])) newArr[index] = newArr[index].toFixed(2);
+        if (lengthStr.length > 4) {
+            if (/\d/.test(newArr[index])) {
+                newArr[index] = newArr[index].toFixed(2);
+            };
         };
     }
     return newArr.join('');
