@@ -5,7 +5,7 @@ const fuFs = require('../../public/javascripts/1_Browse_files/access_to_folders'
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
-  const locשtion = 'C:/Users/שימי לוינשטיין/Desktop'
+  const locשtion = './'
   res.render('1_Browse_files/browse_files', { title: 'Browse files', contentFolder: fuFs.contentFolder(locשtion), locשtion: locשtion });
 });
 
